@@ -8,6 +8,35 @@
   color: white;
   content: "horizontal overflow";
 }
+.vertical-overflow {
+  width: 100px;
+  height: 4000px;
+  font-size: 54pt;
+  background-color: gray;
+  writing-mode: vertical-rl;
+}
+.vertical-overflow::before {
+  color: white;
+  content: "vertical overflow";
+}
+.fixed {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  position: fixed;
+}
+.absolute {
+  width: 100px;
+  height: 100px;
+  background-color: MediumPurple;
+  position: absolute;
+}
+.right {
+  right: 0;
+}
+.bottom {
+  bottom: 0;
+}
 .hflex {
   display: flex;
   flex-direction: row;
