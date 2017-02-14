@@ -1,3 +1,6 @@
+body {
+  background-color: MistyRose;
+}
 .horizontal-overflow {
   width: 4000px;
   height: 100px;
