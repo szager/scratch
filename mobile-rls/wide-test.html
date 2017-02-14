@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<style>
+.horizontal-overflow {
+  width: 1200px;
+  height: 50px;
+  font-size: 54pt;
+  background-color: gray;
+}
+.horizontal-overflow:before {
+  color: white;
+  content: horizontal overflow;
+}
+.hflex {
+  display: flex;
+  flex-direction: row;
+  counter-reset: flex-counter;
+}
+.wrap {
+  flex-wrap: wrap;
+}
+.hflex > div {
+  width: 100px;
+  height: 100px;
+  margin: 2px;
+  flex: 1 1 auto;
+  background-color: green;
+  text-align: center;
+  font-size: 54pt;
+}
+.hflex.wrap > div {
+  flex: 0 0 auto;
+  background-color: blue;
+}
+.hflex > div:before {
+  color: white;
+  counter-increment: flex-counter;
+  content: counter(flex-counter);
+}
+</style>
+
+<div class="horizontal-overflow"></div>
+
+<div class="hflex">
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dignissim dolor eu dictum fringilla. Nulla maximus ante sit amet eros placerat, vitae malesuada diam aliquam. Nam facilisis arcu eu hendrerit iaculis. Donec feugiat vehicula enim nec elementum. Phasellus ut imperdiet massa. Vivamus cursus pretium metus quis accumsan. Sed lorem augue, hendrerit sed neque ut, vestibulum tristique magna. Phasellus consequat lorem ligula, accumsan porttitor est hendrerit non. Sed sed ex sagittis, condimentum tellus vitae, placerat est. Vestibulum pellentesque orci at justo ultricies finibus. Mauris luctus urna at leo porta, sed rhoncus nibh rutrum. Suspendisse et tellus nec magna eleifend pretium ut ut ligula. Mauris quis ex sapien. Curabitur dignissim neque a urna accumsan varius.
+</div>
+
+<div class="hflex">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+
+<div class="hflex wrap">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
