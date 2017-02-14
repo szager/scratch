@@ -1,42 +1,5 @@
 <!DOCTYPE html>
-<style>
-.horizontal-overflow {
-  width: 1200px;
-  height: 50px;
-  font-size: 54pt;
-  background-color: gray;
-}
-.horizontal-overflow:before {
-  color: white;
-  content: horizontal overflow;
-}
-.hflex {
-  display: flex;
-  flex-direction: row;
-  counter-reset: flex-counter;
-}
-.wrap {
-  flex-wrap: wrap;
-}
-.hflex > div {
-  width: 100px;
-  height: 100px;
-  margin: 2px;
-  flex: 1 1 auto;
-  background-color: green;
-  text-align: center;
-  font-size: 54pt;
-}
-.hflex.wrap > div {
-  flex: 0 0 auto;
-  background-color: blue;
-}
-.hflex > div:before {
-  color: white;
-  counter-increment: flex-counter;
-  content: counter(flex-counter);
-}
-</style>
+<link rel="stylesheet" href="wide-test.css">
 
 <div class="horizontal-overflow"></div>
 
