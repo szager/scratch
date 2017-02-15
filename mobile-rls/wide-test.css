@@ -40,29 +40,39 @@ body {
 .bottom {
   bottom: 0;
 }
+.nowrap {
+  white-space: nowrap;
+  counter-reset: item-counter;
+}
 .hflex {
   display: flex;
   flex-direction: row;
-  counter-reset: flex-counter;
+  counter-reset: item-counter;
 }
 .wrap {
   flex-wrap: wrap;
 }
-.hflex > div {
+.nowrap > div, .hflex > div {
   width: 100px;
   height: 100px;
   margin: 2px;
-  flex: 1 1 auto;
-  background-color: green;
   text-align: center;
   font-size: 54pt;
+}
+.nowrap > div {
+  display: inline-block;
+  background-color: Sienna;
+}
+.hflex > div {
+  flex: 1 1 auto;
+  background-color: green;
 }
 .hflex.wrap > div {
   flex: 0 0 auto;
   background-color: blue;
 }
-.hflex > div:before {
+.nowrap > div:before, .hflex > div:before {
   color: white;
-  counter-increment: flex-counter;
-  content: counter(flex-counter);
+  counter-increment: item-counter;
+  content: counter(item-counter);
 }
