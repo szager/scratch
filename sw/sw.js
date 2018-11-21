@@ -1,6 +1,6 @@
 var CACHE_NAME = 'cache';
 var CACHE_PATHS = [
-  'index.html',
+  '',
   'manifest.json',
   'images/icon2-16.png',
   'images/icon2-48.png',
