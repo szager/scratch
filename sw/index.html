@@ -25,6 +25,8 @@
 	    response.blob().then(blob => {
 	      let img = document.createElement('img');
 	      img.src = URL.createObjectURL(blob);
+	      img.style.position = 'absolute';
+	      img.style.bottom = '0';
 	      document.body.appendChild(img);
 	    });
 	  });
