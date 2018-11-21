@@ -20,14 +20,16 @@
     if (self.navigator && "serviceWorker" in navigator) {
       navigator.serviceWorker.ready.then(reg => {
 	console.log("navigator.serviceWorker.ready");
+	let div = document.createElement('div');
+	div.style.position = 'absolute';
+	div.style.bottom = '0';
+	document.body.appendChild(div);
 	["16", "48", "128"].forEach(size => {
 	  fetch("images/icon2-" + size + ".png").then(response => {
 	    response.blob().then(blob => {
 	      let img = document.createElement('img');
 	      img.src = URL.createObjectURL(blob);
-	      img.style.position = 'absolute';
-	      img.style.bottom = '0';
-	      document.body.appendChild(img);
+	      div.appendChild(img);
 	    });
 	  });
 	});
