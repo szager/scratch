@@ -1,10 +1,10 @@
 var CACHE_NAME = 'cache';
 var CACHE_PATHS = [
-  '',
-  'manifest.json',
-  'images/icon2-16.png',
-  'images/icon2-48.png',
-  'images/icon2-128.png',
+  '/scratch/sw/',
+  '/scratch/sw/manifest.json',
+  '/scratch/sw/images/icon2-16.png',
+  '/scratch/sw/images/icon2-48.png',
+  '/scratch/sw/images/icon2-128.png',
 ];
 
 function log(msg) {
