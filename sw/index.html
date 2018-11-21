@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<head>
+  <link rel="manifest" href="/manifest.json">
+  <style>
+    #banner-container {
+      height:100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    let banner = document.getElementById("banner");
+    let sw_url = 'https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API';
+    let sw_link = "<a href='" + sw_url + "'>ServiceWorker</a>";
+    if (self.navigator && "serviceWorker" in navigator) {
+      navigator.serviceWorker.ready.then(reg => {
+	console.log("navigator.serviceWorker.ready");
+      });
+      navigator.serviceWorker.register("/sw.js").then(reg => {
+	console.log("ServiceWorker registered.");
+      }).catch(err => {
+        banner.innerHTML = "Sorry, failed to register a " + sw_link + ".";
+      });
+    } else {
+      banner.innerHTML = "Sorry, this app requires a browser with " + sw_link + " support.";
+    }
+  });
+  </script>
+</head>
+<body>
+  <div id="banner-container"><h1 id="banner">Please wait...</h1></div>
+</body>
