@@ -1,9 +1,9 @@
 var CACHE_NAME = 'cache';
 var CACHE_PATHS = [
-  '/',
-  '/images/icon2-16.png',
-  '/images/icon2-48.png',
-  '/images/icon2-128.png',
+  '/sw/',
+  '/sw/images/icon2-16.png',
+  '/sw/images/icon2-48.png',
+  '/sw/images/icon2-128.png',
 ];
 
 function log(msg) {
