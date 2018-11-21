@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-  <link rel="manifest" href="/manifest.json">
+  <link rel="manifest" href="manifest.json">
   <style>
     #banner-container {
       height:100%;
@@ -18,7 +18,7 @@
       navigator.serviceWorker.ready.then(reg => {
 	console.log("navigator.serviceWorker.ready");
       });
-      navigator.serviceWorker.register("/sw.js").then(reg => {
+      navigator.serviceWorker.register("sw.js").then(reg => {
 	console.log("ServiceWorker registered.");
       }).catch(err => {
         banner.innerHTML = "Sorry, failed to register a " + sw_link + ".";
