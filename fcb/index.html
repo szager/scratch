@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<style>
+#float-overflow {
+  float: left;
+  width: 1px;
+}
+
+#float-overlap {
+  background-color: #f5f7f9;
+  float: left;
+  height: 100px;
+  width: 100px;
+  /* Offset to show how the layers overlap */
+  margin-left: 50px;
+  margin-top: 50px;
+}
+
+#overflow {
+  border: 1px solid red;
+  background: red;
+  width: 100px;
+  height: 100px;
+}
+</style>
+
+<div id="float-overflow">
+  <canvas id="overflow"></canvas>
+</div>
+
+<div id="float-overlap"></div>
+
+<script>
+onload = function() {
+  var overflow = document.getElementById("overflow");
+  overflow.width = 500;
+  overflow.height = 500;
+  var context = overflow.getContext("2d");
+  context.save();
+  context.fillStyle = "red";
+  context.fillRect(0, 0, 500, 500);
+  context.restore();
+};
+</script>
