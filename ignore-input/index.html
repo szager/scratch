@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<head>
+  <meta name=viewport content="initial-scale=0.75">
+</head>
+<style>
+iframe {
+  height: 300px;
+  display: block;
+  border: 0;
+  margin-bottom: 10px;
+  transition: transform 2s linear;
+}
+.fade {
+  transition: color 2s ease-in-out;
+}
+.click {
+  color: red;
+}
+.mousedown, .pointerdown {
+  color: blue;
+}
+.mouseup, .pointerup {
+  color: green;
+}
+.mouseenter, .mouseleave, .pointerover, .pointerout, .pointerenter, .pointerleave {
+  color: purple;
+}
+#eventContainer {
+  display: inline-block;
+}
+#target {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  color: white;
+  background-color: black;
+}
+#target::before {
+  content: "Hello, world!"
+}
+</style>
+
+<div id=eventContainer></div>
+
+<script>
+let eventContainer = document.getElementById("eventContainer");
+function fade(type) {
+  let fader = document.createElement("div");
+  fader.classList.add("fade");
+  fader.classList.add(type);
+  fader.innerText = type;
+  eventContainer.appendChild(fader);
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      fader.style.color = "#ffffff";
+      fader.addEventListener("transitionend", evt => {
+        fader.parentNode.removeChild(fader);
+      });
+    })
+  });
+}
+
+function handle(evt) {
+  fade(evt.type);
+}
+
+function setupTopWindow() {
+  document.addEventListener("keydown", evt => {
+    if (evt.key === "Enter") {
+      document.querySelectorAll("iframe").forEach(iframe => {
+        iframe.style.transform = "translateX(100px)";
+      });
+    } else {
+      handle(evt);
+    }
+  });
+
+  let iframe = document.createElement("iframe");
+  iframe.setAttribute("sandbox", "allow-scripts");
+  iframe.src = document.URL;
+  iframe.style.backgroundColor = "#c0c0c0";
+  iframe.addEventListener("transitionend", evt => {
+    if (evt.currentTarget.style.transform == "translateX(100px)")
+      evt.currentTarget.style.transform = "";
+  });
+  document.body.prepend(iframe);
+  iframe = document.createElement("iframe");
+  iframe.src = document.URL;
+  iframe.style.backgroundColor = "#e0e0e0";
+  iframe.addEventListener("transitionend", evt => {
+    if (evt.currentTarget.style.transform == "translateX(100px)")
+      evt.currentTarget.style.transform = "";
+  });
+  document.body.prepend(iframe);
+}
+
+function setupIframe() {
+  document.addEventListener("keydown", evt => {
+    if (evt.key === "Enter") {
+      window.top.postMessage("animate", "*");
+    } else {
+      handle(evt);
+    }
+  });
+
+  let target = document.createElement("div");
+  target.id = "target";
+  document.body.prepend(target);
+  new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      console.log(String(self) + " isVisible=" + entry.isVisible);
+    });
+  }, {delay: 100, trackVisibility: true}).observe(target);
+}
+
+if (window === top) {
+  setupTopWindow();
+} else {
+  setupIframe();
+}
+
+let lastReportedTimes = {};
+function handleThrottled(evt) {
+  let last = lastReportedTimes[evt.type] || 0;
+  let now = performance.now();
+  if (now - last > 500) {
+    fade(evt.type);
+    lastReportedTimes[evt.type] = now;
+  }
+}
+
+document.addEventListener("mousedown", handle);
+document.addEventListener("mouseup", handle);
+document.addEventListener("mouseenter", handle);
+document.addEventListener("mouseleave", handle);
+document.addEventListener("mousemove", handleThrottled);
+document.addEventListener("click", handle);
+document.addEventListener("touchstart", handle);
+document.addEventListener("touchend", handle);
+document.addEventListener("touchmove", handleThrottled);
+document.addEventListener("touchcancel", handle);
+document.addEventListener("gesturestart", handle);
+document.addEventListener("gestureend", handle);
+document.addEventListener("gesturechange", handleThrottled);
+document.addEventListener("pointerover", handle);
+document.addEventListener("pointerenter", handle);
+document.addEventListener("pointerdown", handle);
+document.addEventListener("pointermove", handleThrottled);
+document.addEventListener("pointerup", handle);
+document.addEventListener("pointercancel", handle);
+document.addEventListener("pointerout", handle);
+document.addEventListener("pointerleave", handle);
+document.addEventListener("gotpointercapture", handle);
+document.addEventListener("lostpointercapture", handle);
+
+addEventListener("message", evt => {
+  if (evt.data == "animate") {
+    document.querySelectorAll("iframe").forEach(iframe => {
+      iframe.style.transform = "translateX(100px)";
+    });
+  }
+});
+</script>
