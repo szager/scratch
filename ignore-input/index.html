@@ -187,9 +187,6 @@ document.getElementById("gestureEventCheckbox").addEventListener("input", evt =>
 
 document.getElementById("pointerEventCheckbox").addEventListener("input", evt => {
   if (evt.target.value) {
-    document.addEventListener("gesturestart", handle);
-    document.addEventListener("gestureend", handle);
-    document.addEventListener("gesturechange", handleThrottled);
     document.addEventListener("pointerover", handle);
     document.addEventListener("pointerenter", handle);
     document.addEventListener("pointerdown", handle);
@@ -201,9 +198,6 @@ document.getElementById("pointerEventCheckbox").addEventListener("input", evt =>
     document.addEventListener("gotpointercapture", handle);
     document.addEventListener("lostpointercapture", handle);
   } else {
-    document.removeEventListener("gesturestart", handle);
-    document.removeEventListener("gestureend", handle);
-    document.removeEventListener("gesturechange", handleThrottled);
     document.removeEventListener("pointerover", handle);
     document.removeEventListener("pointerenter", handle);
     document.removeEventListener("pointerdown", handle);
