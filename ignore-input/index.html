@@ -45,6 +45,7 @@ iframe {
   <input type=checkbox id=touchEventCheckbox>touch</input>
   <input type=checkbox id=gestureEventCheckbox>gesture</input>
   <input type=checkbox id=pointerEventCheckbox>pointer</input>
+  <span onclick="animate()">animate</span>
 </div>
 <div id=eventContainer></div>
 
@@ -70,12 +71,16 @@ function handle(evt) {
   fade(evt.type);
 }
 
+function animate() {
+  document.querySelectorAll("iframe").forEach(iframe => {
+    iframe.style.transform = "translateX(100px)";
+  });
+}
+
 function setupTopWindow() {
   document.addEventListener("keydown", evt => {
     if (evt.key === "Enter") {
-      document.querySelectorAll("iframe").forEach(iframe => {
-        iframe.style.transform = "translateX(100px)";
-      });
+      animate();
     } else {
       handle(evt);
     }
@@ -214,9 +219,7 @@ document.getElementById("pointerEventCheckbox").addEventListener("input", evt =>
 
 addEventListener("message", evt => {
   if (evt.data == "animate") {
-    document.querySelectorAll("iframe").forEach(iframe => {
-      iframe.style.transform = "translateX(100px)";
-    });
+    animate();
   }
 });
 </script>
