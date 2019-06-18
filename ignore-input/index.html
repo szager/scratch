@@ -42,6 +42,9 @@ iframe {
   border: 1px solid black;
   background-color: lightblue;
 }
+.spacer {
+  height: 2000px;
+}
 </style>
 
 <div id=checkboxContainer>
@@ -53,6 +56,7 @@ iframe {
   <span class=button onclick="self.animate()">animate</span>
 </div>
 <div id=eventContainer></div>
+<div class=spacer></div>
 
 <script>
 let eventContainer = document.getElementById("eventContainer");
@@ -81,26 +85,22 @@ function handle(evt) {
 }
 
 function animate() {
-  document.querySelectorAll("iframe").forEach(iframe => {
-    iframe.style.transform = "translateX(100px)";
-  });
+  if (window === top) {
+    document.querySelectorAll("iframe").forEach(iframe => {
+      iframe.style.transform = "translateX(200px)";
+    });
+  } else {
+    window.top.postMessage("animate", "*");
+  }
 }
 
 function setupTopWindow() {
-  document.addEventListener("keydown", evt => {
-    if (evt.key === "Enter") {
-      animate();
-    } else {
-      handle(evt);
-    }
-  });
-
   let iframe = document.createElement("iframe");
   iframe.setAttribute("sandbox", "allow-scripts");
   iframe.src = document.URL;
   iframe.style.backgroundColor = "#c0c0c0";
   iframe.addEventListener("transitionend", evt => {
-    if (evt.currentTarget.style.transform == "translateX(100px)")
+    if (evt.currentTarget.style.transform == "translateX(200px)")
       evt.currentTarget.style.transform = "";
   });
   document.body.insertBefore(iframe, eventContainer);
@@ -109,21 +109,19 @@ function setupTopWindow() {
   iframe.src = document.URL;
   iframe.style.backgroundColor = "#e0e0e0";
   iframe.addEventListener("transitionend", evt => {
-    if (evt.currentTarget.style.transform == "translateX(100px)")
+    if (evt.currentTarget.style.transform == "translateX(200px)")
       evt.currentTarget.style.transform = "";
   });
   document.body.insertBefore(iframe, eventContainer);
+
+  addEventListener("message", evt => {
+    if (evt.data == "animate") {
+      animate();
+    }
+  });
 }
 
 function setupIframe() {
-  document.addEventListener("keydown", evt => {
-    if (evt.key === "Enter") {
-      window.top.postMessage("animate", "*");
-    } else {
-      handle(evt);
-    }
-  });
-
   let target = document.createElement("div");
   target.id = "target";
   document.body.prepend(target);
@@ -149,6 +147,14 @@ function handleThrottled(evt) {
     lastReportedTimes[evt.type] = now;
   }
 }
+
+document.addEventListener("keydown", evt => {
+  if (evt.key === "Enter") {
+    animate();
+  } else {
+    handle(evt);
+  }
+});
 
 document.addEventListener("click", handle);
 
@@ -220,9 +226,4 @@ document.getElementById("pointerEventCheckbox").addEventListener("input", evt =>
   }
 });
 
-addEventListener("message", evt => {
-  if (evt.data == "animate") {
-    animate();
-  }
-});
 </script>
