@@ -87,6 +87,7 @@ function setupTopWindow() {
   });
 
   let iframe = document.createElement("iframe");
+  iframe.setAttribute("sandbox", "allow-scripts");
   iframe.src = document.URL;
   iframe.style.backgroundColor = "#c0c0c0";
   iframe.addEventListener("transitionend", evt => {
@@ -96,7 +97,6 @@ function setupTopWindow() {
   document.body.insertBefore(iframe, eventContainer);
 
   iframe = document.createElement("iframe");
-  iframe.setAttribute("sandbox", "allow-scripts");
   iframe.src = document.URL;
   iframe.style.backgroundColor = "#e0e0e0";
   iframe.addEventListener("transitionend", evt => {
