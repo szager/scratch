@@ -40,6 +40,12 @@ iframe {
 }
 </style>
 
+<div id=checkboxContainer>
+  <input type=checkbox id=mouseEventCheckbox>mouse</input>
+  <input type=checkbox id=touchEventCheckbox>touch</input>
+  <input type=checkbox id=gestureEventCheckbox>gesture</input>
+  <input type=checkbox id=pointerEventCheckbox>pointer</input>
+</div>
 <div id=eventContainer></div>
 
 <script>
@@ -76,22 +82,23 @@ function setupTopWindow() {
   });
 
   let iframe = document.createElement("iframe");
-  iframe.setAttribute("sandbox", "allow-scripts");
   iframe.src = document.URL;
   iframe.style.backgroundColor = "#c0c0c0";
   iframe.addEventListener("transitionend", evt => {
     if (evt.currentTarget.style.transform == "translateX(100px)")
       evt.currentTarget.style.transform = "";
   });
-  document.body.prepend(iframe);
+  document.body.insertBefore(iframe, eventContainer);
+
   iframe = document.createElement("iframe");
+  iframe.setAttribute("sandbox", "allow-scripts");
   iframe.src = document.URL;
   iframe.style.backgroundColor = "#e0e0e0";
   iframe.addEventListener("transitionend", evt => {
     if (evt.currentTarget.style.transform == "translateX(100px)")
       evt.currentTarget.style.transform = "";
   });
-  document.body.prepend(iframe);
+  document.body.insertBefore(iframe, eventContainer);
 }
 
 function setupIframe() {
@@ -129,29 +136,81 @@ function handleThrottled(evt) {
   }
 }
 
-document.addEventListener("mousedown", handle);
-document.addEventListener("mouseup", handle);
-document.addEventListener("mouseenter", handle);
-document.addEventListener("mouseleave", handle);
-document.addEventListener("mousemove", handleThrottled);
 document.addEventListener("click", handle);
-document.addEventListener("touchstart", handle);
-document.addEventListener("touchend", handle);
-document.addEventListener("touchmove", handleThrottled);
-document.addEventListener("touchcancel", handle);
-document.addEventListener("gesturestart", handle);
-document.addEventListener("gestureend", handle);
-document.addEventListener("gesturechange", handleThrottled);
-document.addEventListener("pointerover", handle);
-document.addEventListener("pointerenter", handle);
-document.addEventListener("pointerdown", handle);
-document.addEventListener("pointermove", handleThrottled);
-document.addEventListener("pointerup", handle);
-document.addEventListener("pointercancel", handle);
-document.addEventListener("pointerout", handle);
-document.addEventListener("pointerleave", handle);
-document.addEventListener("gotpointercapture", handle);
-document.addEventListener("lostpointercapture", handle);
+
+document.getElementById("mouseEventCheckbox").addEventListener("input", evt => {
+  if (evt.target.value) {
+    document.addEventListener("mousedown", handle);
+    document.addEventListener("mouseup", handle);
+    document.addEventListener("mouseenter", handle);
+    document.addEventListener("mouseleave", handle);
+    document.addEventListener("mousemove", handleThrottled);
+  } else {
+    document.removeEventListener("mousedown", handle);
+    document.removeEventListener("mouseup", handle);
+    document.removeEventListener("mouseenter", handle);
+    document.removeEventListener("mouseleave", handle);
+    document.removeEventListener("mousemove", handleThrottled);
+  }
+});
+
+document.getElementById("touchEventCheckbox").addEventListener("input", evt => {
+  if (evt.target.value) {
+    document.addEventListener("touchstart", handle);
+    document.addEventListener("touchend", handle);
+    document.addEventListener("touchmove", handleThrottled);
+    document.addEventListener("touchcancel", handle);
+  } else {
+    document.removeEventListener("touchstart", handle);
+    document.removeEventListener("touchend", handle);
+    document.removeEventListener("touchmove", handleThrottled);
+    document.removeEventListener("touchcancel", handle);
+  }
+});
+
+document.getElementById("gestureEventCheckbox").addEventListener("input", evt => {
+  if (evt.target.value) {
+    document.addEventListener("gesturestart", handle);
+    document.addEventListener("gestureend", handle);
+    document.addEventListener("gesturechange", handleThrottled);
+  } else {
+    document.removeEventListener("gesturestart", handle);
+    document.removeEventListener("gestureend", handle);
+    document.removeEventListener("gesturechange", handleThrottled);
+  }
+});
+
+document.getElementById("pointerEventCheckbox").addEventListener("input", evt => {
+  if (evt.target.value) {
+    document.addEventListener("gesturestart", handle);
+    document.addEventListener("gestureend", handle);
+    document.addEventListener("gesturechange", handleThrottled);
+    document.addEventListener("pointerover", handle);
+    document.addEventListener("pointerenter", handle);
+    document.addEventListener("pointerdown", handle);
+    document.addEventListener("pointermove", handleThrottled);
+    document.addEventListener("pointerup", handle);
+    document.addEventListener("pointercancel", handle);
+    document.addEventListener("pointerout", handle);
+    document.addEventListener("pointerleave", handle);
+    document.addEventListener("gotpointercapture", handle);
+    document.addEventListener("lostpointercapture", handle);
+  } else {
+    document.removeEventListener("gesturestart", handle);
+    document.removeEventListener("gestureend", handle);
+    document.removeEventListener("gesturechange", handleThrottled);
+    document.removeEventListener("pointerover", handle);
+    document.removeEventListener("pointerenter", handle);
+    document.removeEventListener("pointerdown", handle);
+    document.removeEventListener("pointermove", handleThrottled);
+    document.removeEventListener("pointerup", handle);
+    document.removeEventListener("pointercancel", handle);
+    document.removeEventListener("pointerout", handle);
+    document.removeEventListener("pointerleave", handle);
+    document.removeEventListener("gotpointercapture", handle);
+    document.removeEventListener("lostpointercapture", handle);
+  }
+});
 
 addEventListener("message", evt => {
   if (evt.data == "animate") {
