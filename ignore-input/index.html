@@ -159,7 +159,7 @@ document.addEventListener("keydown", evt => {
 document.addEventListener("click", handle);
 
 document.getElementById("mouseEventCheckbox").addEventListener("input", evt => {
-  if (evt.target.value) {
+  if (evt.target.checked) {
     document.addEventListener("mousedown", handle);
     document.addEventListener("mouseup", handle);
     document.addEventListener("mouseenter", handle);
@@ -175,7 +175,7 @@ document.getElementById("mouseEventCheckbox").addEventListener("input", evt => {
 });
 
 document.getElementById("touchEventCheckbox").addEventListener("input", evt => {
-  if (evt.target.value) {
+  if (evt.target.checked) {
     document.addEventListener("touchstart", handle);
     document.addEventListener("touchend", handle);
     document.addEventListener("touchmove", handleThrottled);
@@ -189,7 +189,7 @@ document.getElementById("touchEventCheckbox").addEventListener("input", evt => {
 });
 
 document.getElementById("gestureEventCheckbox").addEventListener("input", evt => {
-  if (evt.target.value) {
+  if (evt.target.checked) {
     document.addEventListener("gesturestart", handle);
     document.addEventListener("gestureend", handle);
     document.addEventListener("gesturechange", handleThrottled);
@@ -201,7 +201,7 @@ document.getElementById("gestureEventCheckbox").addEventListener("input", evt =>
 });
 
 document.getElementById("pointerEventCheckbox").addEventListener("input", evt => {
-  if (evt.target.value) {
+  if (evt.target.checked) {
     document.addEventListener("pointerover", handle);
     document.addEventListener("pointerenter", handle);
     document.addEventListener("pointerdown", handle);
