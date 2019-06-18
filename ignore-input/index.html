@@ -38,6 +38,10 @@ iframe {
 #target::before {
   content: "Hello, world!"
 }
+.button {
+  border: 1px solid black;
+  background-color: lightblue;
+}
 </style>
 
 <div id=checkboxContainer>
@@ -45,7 +49,8 @@ iframe {
   <input type=checkbox id=touchEventCheckbox>touch</input>
   <input type=checkbox id=gestureEventCheckbox>gesture</input>
   <input type=checkbox id=pointerEventCheckbox>pointer</input>
-  <span onclick="self.animate()">animate</span>
+  <input type=checkbox id=autoAnimateCheckbox>auto-animate</input>
+  <span class=button onclick="self.animate()">animate</span>
 </div>
 <div id=eventContainer></div>
 
@@ -68,6 +73,10 @@ function fade(type) {
 }
 
 function handle(evt) {
+  if (document.getElementById("autoAnimateCheckbox").value &&
+      (evt.type == "mousedown" || evt.type == "touchstart")) {
+    animate();
+  }
   fade(evt.type);
 }
 
