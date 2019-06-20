@@ -77,7 +77,7 @@ function fade(type) {
 }
 
 function handle(evt) {
-  if (document.getElementById("autoAnimateCheckbox").value &&
+  if (document.getElementById("autoAnimateCheckbox").checked &&
       (evt.type == "mousedown" || evt.type == "touchstart")) {
     animate();
   }
