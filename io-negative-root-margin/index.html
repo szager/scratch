@@ -48,6 +48,7 @@ window.addEventListener('load', (event) => {
   console.log(rootMargin);
 
   const observer = new IntersectionObserver((entries) => {
+    console.log("window.innerHeight=" + String(window.innerHeight));
     console.log(entries[0]);
     
     const banner = document.getElementById('banner');
