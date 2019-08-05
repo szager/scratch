@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
+
+<style>
+body {
+  margin: 0;
+}
+
+#header {
+  background-color: dimgrey;
+  height: 250px;
+}
+
+#content {
+  background-color: lightgray;
+  height: 750px;
+}
+
+#banner {
+  background-color: darkorange;
+  opacity: 0.6;
+  height: 150px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  transform: translateY(-100%);
+}
+
+#banner.isVisible {
+  transform: translateY(0);
+}
+</style>
+
+</head>
+
+<body>
+<div id="header"></div>
+<div id="banner"></div>
+<div id="content"></div>
+
+<script>
+window.addEventListener('load', (event) => {
+  const bottomMargin = 150 - window.innerHeight;
+  const rootMargin = `0% 0% ${bottomMargin}px 0%`;
+  console.log(rootMargin);
+
+  const observer = new IntersectionObserver((entries) => {
+    console.log(entries[0]);
+    
+    const banner = document.getElementById('banner');
+    if (entries[0].isIntersecting) {
+      banner.classList.add('isVisible');
+    } else {
+      banner.classList.remove('isVisible');
+    }
+  }, {
+    rootMargin: rootMargin,
+  });
+  
+  observer.observe(document.getElementById('content'));
+});
+</script>
+</body>
