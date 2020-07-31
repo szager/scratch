@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <pre id=log></pre>
 <script>
+let counter = 0;
 let log = document.getElementById('log');
 new IntersectionObserver((entries) => {
+  counter++;
   if (entries[0].isIntersecting) {
-    log.innerText += 'intersecting\n'; 
+    log.innerText += '[' + String(counter) + '] intersecting\n'; 
   } else {
-    log.innerText += 'not intersecting\n'; 
+    log.innerText += '[' + String(counter) + '] not intersecting\n'; 
   }
 }).observe(document.body);
 </script>
