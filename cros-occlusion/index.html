@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<style>
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#target {
+  width: 200px;
+  height: 100px;
+  background-color: red;
+}
+.intersecting {
+  background-color: green;
+}
+</style>
+<div id=target></div>
+<script>
+new IntersectionObserver((entries) => {
+  if (entries[0].isIntersecting) {
+    entries[0].target.classList.add('intersecting');
+  } else {
+    entries[0].target.classList.remove('intersecting');
+  }
+}).observe(document.getElementById('target'));
+</script>
